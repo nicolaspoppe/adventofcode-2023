@@ -1,4 +1,4 @@
-console.log("Day 1");
+console.log("Day 1 Part 2");
 
 const data = `hcpjssql4kjhbcqzkvr2fivebpllzqbkhg
 4threethreegctxg3dmbm1
@@ -1001,20 +1001,75 @@ nine5fivecgfsbvbtsn57five7djxlclnfv
 7bbfbcvh6
 ffnrprtnine1tjznmckv5sixczv`;
 
+const numbersDictionnary = {
+  one: "1",
+  two: "2",
+  three: "3",
+  four: "4",
+  five: "5",
+  six: "6",
+  seven: "7",
+  eight: "8",
+  nine: "9",
+};
+
+const numbersSpelledWithLetters = Object.keys(numbersDictionnary);
+
 const getCalibrationValue = (line) => {
   let firstNumber;
+  let firstNumberIndex = -1;
   let lastNumber;
+  let lastNumberIndex = -1;
+
+  // Digital numbers part
   for (let index = 0; index < line.length; index++) {
     const letter = line[index];
     if (!isNaN(letter)) {
       if (!firstNumber) {
         firstNumber = letter;
         lastNumber = letter;
+        firstNumberIndex = index;
       } else {
         lastNumber = letter;
       }
+
+      lastNumberIndex = index;
     }
   }
+
+  // String numbers part
+  numbersSpelledWithLetters.forEach((numberSpelled) => {
+    const firstIndexOfNumberSpelledFound = line.indexOf(numberSpelled);
+    const lastIndexOfNumberSpelledFound = line.lastIndexOf(numberSpelled);
+    const realNumberFound = numbersDictionnary[numberSpelled];
+
+    if (
+      firstIndexOfNumberSpelledFound == -1 &&
+      lastIndexOfNumberSpelledFound == -1
+    )
+      return;
+
+    if (firstNumberIndex == -1) {
+      firstNumber = realNumberFound;
+      lastNumber = realNumberFound;
+      firstNumberIndex = firstIndexOfNumberSpelledFound;
+      lastNumberIndex = lastIndexOfNumberSpelledFound;
+      return;
+    }
+
+    if (
+      firstIndexOfNumberSpelledFound !== -1 &&
+      firstIndexOfNumberSpelledFound < firstNumberIndex
+    ) {
+      firstNumber = realNumberFound;
+      firstNumberIndex = firstIndexOfNumberSpelledFound;
+    }
+
+    if (lastIndexOfNumberSpelledFound > lastNumberIndex) {
+      lastNumber = realNumberFound;
+      lastNumberIndex = lastIndexOfNumberSpelledFound;
+    }
+  });
 
   return parseInt(firstNumber + lastNumber);
 };

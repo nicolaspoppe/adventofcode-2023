@@ -1,16 +1,13 @@
 import java.io.*;
 import java.util.ArrayList;
 
-class part1 {
+class part2 {
     public static Integer getGameId(String game) {
         return Integer.parseInt(game.substring(5));
     }
 
     public static void main(String[] args) throws Exception {
         File file = new File(".\\data.txt");
-        int redCubesLoaded = 12;
-        int greenCubesLoaded = 13;
-        int blueCubesLoaded = 14;
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             ArrayList<Game> allGames = new ArrayList<Game>();
@@ -50,10 +47,7 @@ class part1 {
 
             int counter = 0;
             for (Game g : allGames) {
-                if (g.isGamePossible(redCubesLoaded, greenCubesLoaded, blueCubesLoaded)) {
-                    counter += g.getGameId();
-
-                }
+                counter += g.getPower();
             }
             System.out.println(counter);
         }

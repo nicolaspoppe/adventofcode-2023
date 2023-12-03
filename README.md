@@ -7,3 +7,5 @@ This repository is used to store all completed challenges from the [Advent of Co
 Day 1 : JavaScript
 
 Day 2 : Java
+
+Day 3 : Python

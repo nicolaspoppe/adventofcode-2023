@@ -9,3 +9,5 @@ Day 1 : JavaScript
 Day 2 : Java
 
 Day 3 : Python
+
+Day 4 : TypeScript
